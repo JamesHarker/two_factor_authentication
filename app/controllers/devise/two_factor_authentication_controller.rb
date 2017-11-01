@@ -10,7 +10,7 @@ class Devise::TwoFactorAuthenticationController < DeviseController
     md5 = Digest::MD5.hexdigest(params[:code])
     if Devise.secure_compare(md5, resource.second_factor_pass_code)
       warden.session(resource_name)[:need_two_factor_authentication] = false
-      sign_in resource_name, resource, :bypass => true
+      bypass_sign_in(resource, scope: resource_name)
       redirect_to stored_location_for(resource_name) || :root
       resource.update_attribute(:second_factor_attempts_count, 0)
     else
