@@ -24,7 +24,7 @@ module TwoFactorAuthentication
           store_location_for(scope, request.url) if request.get?
           redirect_to two_factor_authentication_path_for(scope)
         else
-          render nothing: true, status: :unauthorized
+          head :unauthorized
         end
       end
 
